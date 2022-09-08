@@ -36,6 +36,12 @@ public class UserModel implements Serializable {
     @Column(name = "full_name", nullable = false, length = 150)
     private String fullName;
 
+    @Column(name = "cpf", nullable = false, unique = true, length = 11)
+    private String cpf;
+
+    @Column(name = "email", nullable = false, unique = true, length = 50)
+    private String email;
+
     @Column(name = "password", nullable = false, length = 255)
     @JsonIgnore
     private String password;
@@ -50,9 +56,6 @@ public class UserModel implements Serializable {
 
     @Column(name = "phone_number", length = 20)
     private String phoneNumber;
-
-    @Column(name = "cpf", length = 11)
-    private String cpf;
 
     @Column(name = "image_url")
     private String imageUrl;
