@@ -5,7 +5,6 @@ import com.phpimentel.sistemafinanceiroapi.enums.AccountType;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
-import java.time.OffsetDateTime;
 import java.util.UUID;
 
 @Data
