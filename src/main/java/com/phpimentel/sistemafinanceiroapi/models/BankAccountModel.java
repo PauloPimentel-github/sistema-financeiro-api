@@ -2,9 +2,9 @@ package com.phpimentel.sistemafinanceiroapi.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.phpimentel.sistemafinanceiroapi.dtos.BankAccountDto;
 import com.phpimentel.sistemafinanceiroapi.dtos.CustomerDto;
-import com.phpimentel.sistemafinanceiroapi.enums.CustomerStatus;
-import com.phpimentel.sistemafinanceiroapi.enums.Person;
+import com.phpimentel.sistemafinanceiroapi.enums.AccountType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.CreationTimestamp;
@@ -19,8 +19,8 @@ import java.util.UUID;
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
-@Table(name = "customers")
-public class CustomerModel implements Serializable {
+@Table(name = "bank_accounts")
+public class BankAccountModel implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -28,26 +28,6 @@ public class CustomerModel implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @EqualsAndHashCode.Include
     private UUID id;
-
-    @Column(name = "name", nullable = false, length = 150)
-    private String name;
-
-    @Column(name = "person", nullable = false, length = 15)
-    @Enumerated(EnumType.STRING)
-    private Person person;
-
-    @Column(name = "document", nullable = false, length = 20)
-    private String document;
-
-    @Column(name = "telephone", nullable = false, length = 20)
-    private String telephone;
-
-    @Column(name = "address", nullable = false, length = 100)
-    private String address;
-
-    @Column(name = "customer_status", nullable = false, length = 50)
-    @Enumerated(EnumType.STRING)
-    private CustomerStatus customerStatus;
 
     @Column(name = "bank", nullable = false, length = 50)
     private String bank;
@@ -58,8 +38,12 @@ public class CustomerModel implements Serializable {
     @Column(name = "account", nullable = false, length = 25)
     private String account;
 
-    @Column(name = "observation", nullable = false, length = 100)
-    private String observation;
+    @Column(name = "account_type", nullable = false, length = 10)
+    @Enumerated(EnumType.STRING)
+    private AccountType accountType;
+
+    @Column(name = "document", length = 20)
+    private String document;
 
     @CreationTimestamp
     @Column(name="creation_date", nullable = false)
@@ -71,9 +55,9 @@ public class CustomerModel implements Serializable {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
     private OffsetDateTime lastUpdateDate;
 
-    public CustomerDto convertToCustomerDto() {
-        var customerDto = new CustomerDto();
-        BeanUtils.copyProperties(this, customerDto);
-        return customerDto;
+    public BankAccountDto convertBankAccountDto() {
+        var bankAccountDto = new BankAccountDto();
+        BeanUtils.copyProperties(this, bankAccountDto);
+        return bankAccountDto;
     }
 }

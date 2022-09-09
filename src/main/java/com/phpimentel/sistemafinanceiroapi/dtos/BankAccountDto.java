@@ -1,6 +1,7 @@
 package com.phpimentel.sistemafinanceiroapi.dtos;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.phpimentel.sistemafinanceiroapi.enums.AccountType;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
@@ -9,13 +10,21 @@ import java.util.UUID;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class BankDto {
+public class BankAccountDto {
 
     private UUID id;
 
     @NotBlank
-    private String name;
+    private String bank;
 
-    private OffsetDateTime creationDate;
-    private OffsetDateTime lastUpdateDate;
+    @NotBlank
+    private String agency;
+
+    @NotBlank
+    private String account;
+
+    @NotBlank
+    private AccountType accountType;
+
+    private String document;
 }

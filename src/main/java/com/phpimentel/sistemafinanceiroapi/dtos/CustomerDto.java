@@ -44,10 +44,4 @@ public class CustomerDto {
 
     @NotBlank
     private String observation;
-
-    @NotBlank
-    private OffsetDateTime creationDate;
-
-    @NotBlank
-    private OffsetDateTime lastUpdateDate;
 }
