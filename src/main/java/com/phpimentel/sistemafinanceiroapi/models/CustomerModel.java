@@ -2,12 +2,14 @@ package com.phpimentel.sistemafinanceiroapi.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.phpimentel.sistemafinanceiroapi.dtos.CustomerDto;
 import com.phpimentel.sistemafinanceiroapi.enums.CustomerStatus;
 import com.phpimentel.sistemafinanceiroapi.enums.Person;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.beans.BeanUtils;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -18,7 +20,7 @@ import java.util.UUID;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Table(name = "users")
-public class Customer implements Serializable {
+public class CustomerModel implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -27,11 +29,8 @@ public class Customer implements Serializable {
     @EqualsAndHashCode.Include
     private UUID id;
 
-    @Column(name = "name", nullable = false, length = 50)
+    @Column(name = "name", nullable = false, length = 150)
     private String name;
-
-    @Column(name = "lastName", nullable = false, length = 150)
-    private String lastName;
 
     @Column(name = "person", nullable = false, length = 15)
     @Enumerated(EnumType.STRING)
@@ -71,4 +70,10 @@ public class Customer implements Serializable {
     @Column(name="last_update_date", nullable = false)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
     private OffsetDateTime lastUpdateDate;
+
+    public CustomerDto convertToCustomerDto() {
+        var customerDto = new CustomerDto();
+        BeanUtils.copyProperties(this, customerDto);
+        return customerDto;
+    }
 }
