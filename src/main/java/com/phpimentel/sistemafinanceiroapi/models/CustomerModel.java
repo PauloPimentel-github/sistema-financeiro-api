@@ -19,7 +19,7 @@ import java.util.UUID;
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
-@Table(name = "users")
+@Table(name = "customers")
 public class CustomerModel implements Serializable {
 
     private static final long serialVersionUID = 1L;
