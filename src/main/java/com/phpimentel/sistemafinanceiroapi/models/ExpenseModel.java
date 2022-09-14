@@ -31,10 +31,6 @@ public class ExpenseModel implements Serializable {
     @Column(name = "name", nullable = false, length = 50)
     private String name;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private CategoryExpenseModel categoryExpense;
-
     @CreationTimestamp
     @Column(name="creation_date", nullable = false)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
@@ -44,6 +40,10 @@ public class ExpenseModel implements Serializable {
     @Column(name="last_update_date", nullable = false)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
     private OffsetDateTime lastUpdateDate;
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private CategoryExpenseModel categoryExpense;
 
     public ExpenseDto convertToExpenseDto() {
         var expenseDto = new ExpenseDto();
